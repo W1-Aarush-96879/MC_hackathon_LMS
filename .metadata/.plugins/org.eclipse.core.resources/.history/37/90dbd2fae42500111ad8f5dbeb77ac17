@@ -1,0 +1,94 @@
+package entity;
+
+import java.io.Serializable;
+import java.util.Scanner;
+
+public class Member implements Serializable{
+	private static final long serialVersionUID = 1L;
+	private int id;
+	private String name;
+	private String email;
+	private String phone;
+	boolean isPaid;
+	
+	
+	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public boolean isPaid() {
+		return isPaid;
+	}
+
+	public void setPaid(boolean isPaid) {
+		this.isPaid = isPaid;
+	}
+
+	public Member() {
+		
+	}
+
+	public Member(int id, String name, String email, String phone, boolean isPaid) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.email = email;
+		this.phone = phone;
+		this.isPaid = isPaid;
+	}
+	
+	//constructor for isPaid = false
+	public Member(int id, String name, String email, String phone) {
+	    this(id, name, email, phone, false);
+	}
+
+	@Override
+	public String toString() {
+		return "Member [id=" + id + ", name=" + name + ", email=" + email + ", phone=" + phone + ", isPaid=" + isPaid
+				+ "]";
+	}
+	
+	public void accept(Scanner sc) {
+		System.out.println("Enter member id: ");
+		this.id = sc.nextInt();
+		sc.nextLine();
+		System.out.println("Enter member name: ");
+		this.name = sc.next();
+		System.out.println("Enter member email: ");
+		this.email = sc.next();
+		System.out.println("Enter member phone no: ");
+		this.phone = sc.next();
+		
+	}
+	
+	
+}

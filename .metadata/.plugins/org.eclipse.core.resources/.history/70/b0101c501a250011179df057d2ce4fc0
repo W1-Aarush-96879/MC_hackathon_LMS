@@ -1,0 +1,18 @@
+package service;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import entity.Book;
+import entity.Copy;
+import entity.IssueRecord;
+
+public class LibraryManager {
+	 List<Book> bookList = new ArrayList<>();
+	 List<Copy> copyList = new ArrayList<>();
+	 List<IssueRecord> recordList = new ArrayList<>();
+	 
+	 public void showBooks() {
+		 
+	 }
+}

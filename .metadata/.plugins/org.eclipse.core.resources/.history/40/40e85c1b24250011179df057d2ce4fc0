@@ -1,0 +1,29 @@
+package entity;
+
+public class Member {
+	private int id;
+	private String name;
+	private String email;
+	private String phone;
+	boolean isPaid;
+	
+	public Member() {
+		
+	}
+
+	public Member(int id, String name, String email, String phone, boolean isPaid) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.email = email;
+		this.phone = phone;
+		this.isPaid = isPaid;
+	}
+	
+	//constructor for isPaid = false
+	public Member(int id, String name, String email, String phone) {
+	    this(id, name, email, phone, false);
+	}
+	
+	
+}

@@ -1,0 +1,8 @@
+package entity;
+
+public class IssueRecord {
+	int id;
+	int copy_id;
+	int member_id;
+	
+}

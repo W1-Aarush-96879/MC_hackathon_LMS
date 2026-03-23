@@ -1,0 +1,8 @@
+package entity;
+
+public class Copy {
+	private int id;
+	private int bookId;
+	private String rack;
+	private String status;
+}

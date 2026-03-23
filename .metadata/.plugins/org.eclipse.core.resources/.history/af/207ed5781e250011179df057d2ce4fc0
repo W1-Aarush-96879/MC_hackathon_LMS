@@ -1,0 +1,52 @@
+package entity;
+
+public class Copy {
+	private int id;
+	private Book bookId;
+	private String rack;
+	private String status;
+	
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public Book getBookId() {
+		return bookId;
+	}
+	public void setBookId(Book bookId) {
+		this.bookId = bookId;
+	}
+	public String getRack() {
+		return rack;
+	}
+	public void setRack(String rack) {
+		this.rack = rack;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	
+	public Copy() {
+		// TODO Auto-generated constructor stub
+	}
+	public Copy(int id, Book bookId, String rack, String status) {
+		super();
+		this.id = id;
+		this.bookId = bookId;
+		this.rack = rack;
+		this.status = status;
+	}
+	@Override
+	public String toString() {
+		return "Copy [id=" + id + ", bookId=" + bookId + ", rack=" + rack + ", status=" + status + "]";
+	}
+	
+	
+	
+	
+}

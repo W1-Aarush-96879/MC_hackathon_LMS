@@ -1,0 +1,90 @@
+package entity;
+
+import java.util.Scanner;
+
+public class Book {
+	private int id;
+	private String title;
+	private String author;
+	private String subject;
+	private String isbn;
+	private float price;
+	
+	public int getBookid() {
+		return id;
+	}
+	public void setBookid(int bookid) {
+		this.id = bookid;
+	}
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	public String getAuthor() {
+		return author;
+	}
+	public void setAuthor(String author) {
+		this.author = author;
+	}
+	public String getSubject() {
+		return subject;
+	}
+	public void setSubject(String subject) {
+		this.subject = subject;
+	}
+	public String getIsbn() {
+		return isbn;
+	}
+	public void setIsbn(String isbn) {
+		this.isbn = isbn;
+	}
+	
+	public float getPrice() {
+		return price;
+	}
+	public void setPrice(float price) {
+		this.price = price;
+	}
+	public Book() {
+		
+	}
+	public Book(int bookid, String title, String author, String subject, String isbn, float price) {
+		super();
+		this.id = bookid;
+		this.title = title;
+		this.author = author;
+		this.subject = subject;
+		this.isbn = isbn;
+		this.price = price;
+	}
+	
+	
+	@Override
+	public String toString() {
+		return "Book [id=" + id + ", title=" + title + ", author=" + author + ", subject=" + subject + ", isbn=" + isbn
+				+ ", price=" + price + "]";
+	}
+	
+	
+	public void accept(Scanner sc) {
+		System.out.println("Enter id: ");
+		this.id = sc.nextInt();
+		sc.nextLine();
+		System.out.println("Enter title: ");
+		this.title = sc.next();
+		System.out.println("Enter author: ");
+		this.author = sc.next();
+		System.out.println("Enter subject: ");
+		this.author = sc.next();
+		System.out.println("Enter isbn: ");
+		this.isbn = sc.next();
+		System.out.println("Enter price: ");
+		this.price = sc.nextFloat();
+		
+	}
+	
+	
+	
+}

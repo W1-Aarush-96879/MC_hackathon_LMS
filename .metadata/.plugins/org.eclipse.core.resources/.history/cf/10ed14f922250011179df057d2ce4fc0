@@ -1,0 +1,9 @@
+package entity;
+
+public class Member {
+	int id;
+	String name;
+	String email;
+	String phone;
+	boolean isPaid;
+}

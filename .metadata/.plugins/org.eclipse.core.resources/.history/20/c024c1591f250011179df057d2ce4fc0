@@ -1,0 +1,26 @@
+package tester;
+
+import java.util.Scanner;
+
+import menu.MainMenu;
+import service.LibraryManager;
+
+public class Main {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		LibraryManager service = new LibraryManager();
+		int choice;
+		
+		while((choice = MainMenu.mainMenu(sc)) != 0) {
+			switch (choice) {
+			case 1:
+				service.addBooks(sc);
+				
+				
+			}
+		}
+
+	}
+
+}

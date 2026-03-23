@@ -1,0 +1,13 @@
+package menu;
+
+import java.util.Scanner;
+
+public class MainMenu {
+	public static int mainMenu(Scanner sc) {
+		System.out.println("0. EXIT");
+		System.out.println("0. Show books");
+		System.out.println("0. Show members");
+		System.out.println("0. Enter choice: ");
+		return sc.nextInt();
+	}
+}

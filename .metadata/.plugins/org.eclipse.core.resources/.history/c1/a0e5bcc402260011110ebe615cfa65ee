@@ -1,0 +1,283 @@
+package service;
+
+import entity.*;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
+public class LibraryManager {
+
+    private List<Book> bookList = new ArrayList<>();
+    private List<Member> memberList = new ArrayList<>();
+    private List<Copy> copyList = new ArrayList<>();
+    private List<IssueRecord> recordList = new ArrayList<>();
+
+    // =========================
+    //  ADD BOOK
+    // =========================
+    public void addBook(Scanner sc) {
+        Book book = new Book();
+
+        System.out.print("Enter Book ID: ");
+        book.setId(sc.nextInt());
+        sc.nextLine();
+
+        System.out.print("Enter Title: ");
+        book.setTitle(sc.nextLine());
+
+        System.out.print("Enter Author: ");
+        book.setAuthor(sc.nextLine());
+
+        System.out.print("Enter Subject: ");
+        book.setSubject(sc.nextLine());
+
+        System.out.print("Enter ISBN: ");
+        book.setIsbn(sc.nextLine());
+
+        System.out.print("Enter Price: ");
+        book.setPrice(sc.nextFloat());
+
+        bookList.add(book);
+
+        System.out.println("Book added successfully!");
+    }
+
+    // =========================
+    //  ADD MEMBER
+    // =========================
+    public void addMember(Scanner sc) {
+        Member member = new Member();
+
+        System.out.print("Enter Member ID: ");
+        member.setId(sc.nextInt());
+        sc.nextLine();
+
+        System.out.print("Enter Name: ");
+        member.setName(sc.nextLine());
+
+        System.out.print("Enter Email: ");
+        member.setEmail(sc.nextLine());
+
+        System.out.print("Enter Phone: ");
+        member.setPhone(sc.nextLine());
+
+        member.setPaid(false);
+
+        memberList.add(member);
+
+        System.out.println("Member added successfully!");
+    }
+
+    // =========================
+    //  ADD COPY
+    // =========================
+    public void addCopy(Scanner sc) {
+
+        System.out.print("Enter Copy ID: ");
+        int copyId = sc.nextInt();
+
+        System.out.print("Enter Book ID: ");
+        int bookId = sc.nextInt();
+        sc.nextLine();
+
+        // Validate book exists
+        Book book = findBookById(bookId);
+        if (book == null) {
+            System.out.println("Book not found!");
+            return;
+        }
+
+        System.out.print("Enter Rack: ");
+        String rack = sc.nextLine();
+
+        Copy copy = new Copy(copyId, bookId, rack, "AVAILABLE");
+
+        copyList.add(copy);
+
+        System.out.println("Copy added successfully!");
+    }
+
+    // =========================
+    //  SHOW METHODS
+    // =========================
+
+    public void showBooks() {
+        for (Book b : bookList) {
+            System.out.println(b);
+        }
+    }
+
+    public void showMembers() {
+        for (Member m : memberList) {
+            System.out.println(m);
+        }
+    }
+
+    public void showCopies() {
+        for (Copy c : copyList) {
+            System.out.println(c);
+        }
+    }
+
+    // =========================
+    //  HELPER METHODS
+    // =========================
+
+    public Book findBookById(int id) {
+        for (Book b : bookList) {
+            if (b.getId() == id)
+                return b;
+        }
+        return null;
+    }
+
+    public Member findMemberById(int id) {
+        for (Member m : memberList) {
+            if (m.getId() == id)
+                return m;
+        }
+        return null;
+    }
+
+    public Copy findAvailableCopy(int bookId) {
+        for (Copy c : copyList) {
+            if (c.getBookId() == bookId && c.getStatus().equalsIgnoreCase("AVAILABLE")) {
+                return c;
+            }
+        }
+        return null;
+    }
+    
+	 // =========================
+	 //  ISSUE BOOK
+	 // =========================
+	 public void issueBook(Scanner sc) {
+	
+	     System.out.print("Enter Member ID: ");
+	     int memberId = sc.nextInt();
+	
+	     System.out.print("Enter Book ID: ");
+	     int bookId = sc.nextInt();
+	
+	     // Step 1: Check Member
+	     Member member = findMemberById(memberId);
+	     if (member == null) {
+	         System.out.println("Member not found!");
+	         return;
+	     }
+	
+	     // Step 2: Check Payment
+	     if (!member.isPaid()) {
+	         System.out.println("Member has not paid membership!");
+	         return;
+	     }
+	
+	     // Step 3: Find available copy
+	     Copy copy = findAvailableCopy(bookId);
+	     if (copy == null) {
+	         System.out.println("No available copies for this book!");
+	         return;
+	     }
+	
+	     // Step 4: Create Issue Record
+	     IssueRecord record = new IssueRecord();
+	
+	     record.setId(recordList.size() + 1);
+	     record.setCopyId(copy.getId());
+	     record.setMemberId(memberId);
+	
+//	     LocalDate today = LocalDate.now();
+//	
+//	     record.setIssueDate(today);
+//	     record.setReturnDueDate(today.plusDays(7));
+	     
+	     LocalDate today = LocalDate.now();
+
+		 // Simulate old issue (10 days ago)
+		 record.setIssueDate(today.minusDays(10));
+	
+		 // Due date was 7 days after issue → 3 days ago
+		 record.setReturnDueDate(today.minusDays(3));
+	
+	     // Step 5: Update Copy Status
+	     copy.setStatus("ISSUED");
+	
+	     // Step 6: Save record
+	     recordList.add(record);
+	
+	     System.out.println("Book issued successfully!");
+	     System.out.println("Copy ID: " + copy.getId());
+	     System.out.println("Return Due Date: " + record.getReturnDueDate());
+	 }
+	 
+	 	 // =========================
+		 //  RETURN BOOK
+		 // =========================
+	 
+	 public void returnBook(Scanner sc) {
+		 
+		 
+		 System.out.print("Enter the copy id of book which is being returned: ");
+		 int copyId = sc.nextInt();
+		 sc.nextLine();	
+		 
+		 IssueRecord foundRecord = null;
+		 
+		//Step 1: find the active issue record
+		 for(IssueRecord ir : recordList) {
+			 if(ir.getCopyId() == copyId && ir.getReturnDate() == null) {
+				 foundRecord = ir;
+				 break;
+			 }
+		 }
+		 
+		 //Step 2: if not found
+		 if(foundRecord == null) {
+			 System.out.println("This copy was never issued or already returned");
+			 return;
+		 }
+		 
+		 //Step 3: set return date (today)
+		 LocalDate returnDate = LocalDate.now();
+		 foundRecord.setReturnDate(returnDate);
+		 
+		 //Step 4: get due date
+		 LocalDate dueDate = foundRecord.getReturnDueDate();
+		 
+		 long delayDays = 0;
+		 double fine = 0;
+		 
+		 //Step 5: check for late return
+		 if(returnDate.isAfter(dueDate)) {
+			 delayDays = java.time.temporal.ChronoUnit.DAYS.between(dueDate, returnDate);
+			 fine = delayDays * 5;
+		 }
+		 
+		 //Step 6: update fine
+		 foundRecord.setFineAmount(fine);
+		 
+		// Step 7: Update copy status
+		    for (Copy c : copyList) {
+		        if (c.getId() == copyId) {
+		            c.setStatus("AVAILABLE");
+		            break;
+		        }
+		    }
+
+		    // Step 8: Show result
+		    System.out.println("Book returned successfully!");
+
+		    if (fine > 0) {
+		        System.out.println("Late by " + delayDays + " days");
+		        System.out.println("Fine = ₹" + fine);
+		    } else {
+		        System.out.println("No fine!");
+		    }
+		 
+	 }
+    
+    
+}

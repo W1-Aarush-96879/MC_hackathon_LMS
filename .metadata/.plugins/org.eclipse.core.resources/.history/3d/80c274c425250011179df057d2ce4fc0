@@ -1,0 +1,31 @@
+package service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+import entity.Book;
+import entity.Copy;
+import entity.IssueRecord;
+
+public class LibraryManager {
+	 List<Book> bookList = new ArrayList<>();
+	 List<Copy> copyList = new ArrayList<>();
+	 List<IssueRecord> recordList = new ArrayList<>();
+	 
+	 
+	 //Add Book
+	 public void addBooks(Scanner sc) {
+		 Book book = new Book();
+		 book.accept(sc);
+		 bookList.add(book);
+	 }
+	 
+	 
+	 //Show Book
+	 public void showBooks() {
+		 for(Book b:bookList) {
+			 System.out.println(b);
+		 }
+	 }
+}

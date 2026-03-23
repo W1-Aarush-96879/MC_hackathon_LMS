@@ -1,5 +1,21 @@
 package menu;
 
-public class MainMenu {
+import java.util.Scanner;
 
+public class MainMenu {
+	public static int mainMenu(Scanner sc) {
+		System.out.println("-------------------------------------");
+		System.out.println("0. EXIT");
+		System.out.println("1. Add books");
+		System.out.println("2. Add members");
+		System.out.println("3. Show books");
+		System.out.println("4. Show members");
+		System.out.println("5. Add copies");
+		System.out.println("6. Show copies");
+		System.out.println("7. Issue Book");
+		System.out.println("8. Return Book");
+		System.out.println("-------------------------------------");
+		System.out.println("Enter choice: ");
+		return sc.nextInt();
+	}
 }
